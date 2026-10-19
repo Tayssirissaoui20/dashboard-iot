@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard  </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <p class="brand-eyebrow">ESP32 · Temps réel</p>
+        <h1>Dashboard IoT</h1>
+        <p class="brand-tagline">Surveillance température, humidité et sorties</p>
+      </div>
+    </div>
+
+    <div id="connection" class="status status--pending" role="status" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">Connexion en cours…</span>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="panel" aria-labelledby="section-measures">
+      <header class="section-head">
+        <h2 id="section-measures">Mesures environnementales</h2>
+        <p class="section-desc">Données capteur DHT22 synchronisées via Firebase</p>
+      </header>
+
+      <div class="cards">
+        <article class="card gauge-card temperature">
+          <div class="card-head">
+            <span class="metric-icon metric-icon--temp" aria-hidden="true"></span>
+            <h3>Température</h3>
+          </div>
+
+          <div class="gauge" id="gaugeTemp" aria-hidden="true">
+            <div class="gauge-inner">
+              <span class="gauge-value" id="temperature">--</span>
+              <span class="gauge-unit">°C</span>
+            </div>
+            <div class="needle" id="needleTemp"></div>
+            <div class="needle-center"></div>
+            <span class="gauge-min">0</span>
+            <span class="gauge-max">100</span>
+          </div>
+
+          <p class="gauge-label">Plage affichée : 0 – 100 °C</p>
+        </article>
+
+        <article class="card gauge-card humidity">
+          <div class="card-head">
+            <span class="metric-icon metric-icon--hum" aria-hidden="true"></span>
+            <h3>Humidité</h3>
+          </div>
+
+          <div class="gauge" id="gaugeHum" aria-hidden="true">
+            <div class="gauge-inner">
+              <span class="gauge-value" id="humidite">--</span>
+              <span class="gauge-unit">%</span>
+            </div>
+            <div class="needle" id="needleHum"></div>
+            <div class="needle-center"></div>
+            <span class="gauge-min">0</span>
+            <span class="gauge-max">100</span>
+          </div>
+
+          <p class="gauge-label">Humidité relative de l'air</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="section-leds">
+      <header class="section-head">
+        <h2 id="section-leds">Contrôle des LEDs</h2>
+        <p class="section-desc">Basculer l'état des sorties sur la carte ESP32</p>
+      </header>
+
+      <div class="leds">
+        <article class="card led-card">
+          <div class="led-header">
+            <div class="led-title">
+              <span class="led-dot" id="dot1" aria-hidden="true"></span>
+              <h3>LED 1</h3>
+            </div>
+            <span class="led-badge" id="badge1" data-state="unknown">—</span>
+          </div>
+
+          <p class="led-state">
+            État actuel : <strong id="etat1">—</strong>
+          </p>
+
+          <button type="button" class="btn-toggle" id="btn1" disabled>
+            Changer l'état
+          </button>
+        </article>
+
+        <article class="card led-card">
+          <div class="led-header">
+            <div class="led-title">
+              <span class="led-dot" id="dot2" aria-hidden="true"></span>
+              <h3>LED 2</h3>
+            </div>
+            <span class="led-badge" id="badge2" data-state="unknown">—</span>
+          </div>
+
+          <p class="led-state">
+            État actuel : <strong id="etat2">—</strong>
+          </p>
+
+          <button type="button" class="btn-toggle" id="btn2" disabled>
+            Changer l'état
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <p id="message" class="feedback" role="status" aria-live="polite"></p>
+
+    <footer class="site-footer">
+      <span>ESP32</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span>Wokwi</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <span>Firebase Realtime Database</span>
+    </footer>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
